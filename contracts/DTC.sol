@@ -10,24 +10,24 @@ contract DataTransaction {
 
     struct Signatory {
         address key;
-        byte32 identfier;
+        bytes32 identfier;
         bool signed;
     }
 
     struct Policy {
-        byte32 identifier;
-        hash document;
-        byte32 location;
+        bytes32 identifier;
+        bytes32 hash;
+        bytes32 location;
     }
 
     struct Obligation {
-        byte32 identifier;
+        bytes32 identifier;
         address rule;
     }
 
-    address Owner;
+    address owner;
 
-    States State = States.Init
+    States State = States.Init;
 
     Signatory[] private Signatories; 
 
@@ -41,35 +41,35 @@ contract DataTransaction {
 
     //Init State
 
-    function DataTransaction() {
+    function DataTransaction() public {
         owner = msg.sender;
         Signatories.push(Signatory(msg.sender, "Owner", false)); //Needs work, how can we get the owners name from the repuation contract?
     }
 
-    function initatePolicy(identifier, document, location) {
+    function initatePolicy(bytes32 identifier,bytes32 document,bytes32 location) public {
         Policies.push(Policy(identifier, document, location));
     }
 
-    function initateObligation(identifier, rule) {
+    function initateObligation(bytes32 identifier,address rule) public {
         Obligations.push(Obligation(identifier, rule));
     }
 
-    function initateSignature() {
+    function initateSignature() public {
+        Signatories[signatoryIndex[owner]].signed = true;
         State = States.Sign;
-        Signatories.signatoryIndex[Owner].signed = true;
         signatures++;
     }
 
     //Sign State
 
-    function sign() {
-        Signatories.signatoryIndex[msg.sender].signed = true;
+    function sign() public {
+        Signatories[signatoryIndex[msg.sender]].signed = true;
         signatures++;
     }
 
-    function verify() {
-        requre(signatures == Signatories.length)
-         State = States.Verfied;
+    function verify() public {
+        require(signatures == Signatories.length);
+         State = States.Verified;
     }
 
     
