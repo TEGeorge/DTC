@@ -20,7 +20,7 @@ contract DataPolicy {
 
 }
 
-contract Agreements {
+contract Agreement {
 
     //States: Offered, Binding, Void, Dissolved
 
@@ -31,7 +31,7 @@ contract Agreements {
     
 }
 
-contract Obligations {
+contract Obligation {
     
     address policy;
 
@@ -54,5 +54,5 @@ contract ObligationEnforcement {
 
     uint damages;
 
-    
+
 }
