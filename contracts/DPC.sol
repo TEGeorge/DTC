@@ -27,7 +27,7 @@ contract Agreement {
     address policy;
 
     address signatory;
-
+ 
     
 }
 
@@ -54,5 +54,8 @@ contract ObligationEnforcement {
 
     uint damages;
 
-
+    //Include parties and payments made? Controller, Processer, Agreement
+    //3rd parties have to put forward payments to create enforcement
+    //Include link to contract including details of the enforcement?? Document??
+    
 }
